@@ -23,10 +23,10 @@ namespace Image_Tools
         private void BtnMainBackground_Click(object sender, EventArgs e)
         {
             RemoveBackground RemBg = new RemoveBackground();
+            //this.Hide();
+            RemBg.Show();
             //RemBg.ShowDialog();
-            this.Hide();
-            RemBg.ShowDialog();
-            this.Show();
+            //this.Show();
 
         }
 
@@ -42,7 +42,11 @@ namespace Image_Tools
 
         private void Btn_MainImageToText_Click(object sender, EventArgs e)
         {
-
+            ImageToText toText = new ImageToText();
+            //this.Hide();
+            toText.Show();
+            //toText.ShowDialog();
+            //this.Show();
         }
 
         private void Label1_Click(object sender, EventArgs e)
@@ -291,6 +295,50 @@ namespace Image_Tools
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(linkLabel1.Text);
+        }
+        public static void FillList(ListView list, OpenFileDialog fileDialog)
+        {
+            fileDialog.Filter =
+                "Images (*.BMP;*.JPG;*.GIF,*.PNG,*.TIFF)|*.BMP;*.JPG;*.GIF;*.PNG;*.TIFF|" +
+                "All files (*.*)|*.*";
+
+            fileDialog.Multiselect = true;
+            fileDialog.Title = "Select Images";
+
+            DialogResult dr = fileDialog.ShowDialog();
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                foreach (String file in fileDialog.FileNames) //percorre todos os ficheiros
+                {
+                    try
+                    {
+                            ListViewItem lvi = new ListViewItem();
+                            lvi.Text = file;
+                        //lvi.SubItems.Add(RemBgSelectImages.SafeFileName);
+                        //lvi.SubItems.Add(RemBgSelectImages.);
+
+                        if (!existChecker(file,list))
+                            list.Items.Add(lvi);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        public static bool existChecker(string id,ListView lvi)
+        {
+            bool exist = false;
+
+            for (int i = 0; i < lvi.Items.Count && exist != true; i++)
+            {
+                if (lvi.Items[i].SubItems[0].Text == id)
+                    exist = true;
+            }
+            return exist;
         }
     }
 }

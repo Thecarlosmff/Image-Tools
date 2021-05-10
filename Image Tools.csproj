@@ -87,6 +87,12 @@
     <Compile Include="ColorsManagementDialog.Designer.cs">
       <DependentUpon>ColorsManagementDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageToText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageToText.Designer.cs">
+      <DependentUpon>ImageToText.cs</DependentUpon>
+    </Compile>
     <Compile Include="PreviewScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,7 @@
     <Compile Include="RemoveBackground.Designer.cs">
       <DependentUpon>RemoveBackground.cs</DependentUpon>
     </Compile>
+    <Compile Include="Text.cs" />
     <Compile Include="ToolsMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +121,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ColorsManagementDialog.resx">
       <DependentUpon>ColorsManagementDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageToText.resx">
+      <DependentUpon>ImageToText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PreviewScreen.resx">
       <DependentUpon>PreviewScreen.cs</DependentUpon>

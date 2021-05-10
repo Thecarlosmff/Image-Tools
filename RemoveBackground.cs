@@ -22,39 +22,8 @@ namespace Image_Tools
 
         private void Btn_SelectImages_Click(object sender, EventArgs e)
         {
-            this.RemBgSelectImages.Filter =
-        "Images (*.BMP;*.JPG;*.GIF,*.PNG,*.TIFF)|*.BMP;*.JPG;*.GIF;*.PNG;*.TIFF|" +
-        "All files (*.*)|*.*";
 
-            this.RemBgSelectImages.Multiselect = true;
-            this.RemBgSelectImages.Title = "Select Images";
-
-            DialogResult dr = this.RemBgSelectImages.ShowDialog();
-            if (dr == System.Windows.Forms.DialogResult.OK)
-            {
-                foreach (String file in RemBgSelectImages.FileNames) //percorre todos os ficheiros
-                {
-                    try
-                    {
-                        ListViewItem lvi = new ListViewItem();
-                        lvi.Text = file;
-                        //lvi.SubItems.Add(RemBgSelectImages.SafeFileName);
-                        //lvi.SubItems.Add(RemBgSelectImages.);
-
-                        list_RemBg.Items.Add(lvi);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
-                }
-            }
-        }
-
-
-        private void openFileDialog1_FileOk_1(object sender, CancelEventArgs e)
-        {
-
+            TranslationTools.FillList(list_RemBg,RemBgSelectImages);
         }
 
         private void RemoveBackground_Load(object sender, EventArgs e)
@@ -70,11 +39,6 @@ namespace Image_Tools
                 //list_RemBg.Add(list_RemBg.SelectedItems);
                 this.list_RemBg.Items.Remove(list_RemBg.SelectedItems[0]);
             }
-        }
-
-        private void list_RemBg_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void Btn_RemoveBackground_Click(object sender, EventArgs e)
@@ -182,36 +146,6 @@ namespace Image_Tools
             return result;
         }
 
-        private void numericUpDown6_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown4_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown5_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void Btn_RemBgSelectFolder_Click(object sender, EventArgs e)
         {
             this.folderBrowserDialog1.ShowNewFolderButton = true;
@@ -267,172 +201,7 @@ namespace Image_Tools
             this.Visible = true;
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numHueMin1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numHueMax1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numSatMax1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numSatMin1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numValMin1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numValMax1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void HSVBox3_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void HSVBox2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void HSVBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numHueMax3_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numHueMin3_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numHueMin4_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numHueMax4_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numSatMin4_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numSatMax4_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numValMin4_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numValMax4_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_cleanListViewRemBg_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numSatMin3_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numSatMax3_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numValMin3_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numValMax3_ValueChanged(object sender, EventArgs e)
+        private void list_RemBg_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
