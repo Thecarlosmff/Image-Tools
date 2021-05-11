@@ -20,7 +20,8 @@ namespace Image_Tools
                 SetProcessDPIAware();
 
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(true);
+            //Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new TranslationTools());
 
         }

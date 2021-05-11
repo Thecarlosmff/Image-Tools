@@ -89,6 +89,7 @@ namespace Image_Tools
             this.btn_addBgColor = new System.Windows.Forms.Button();
             this.btn_remBg_preview = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numHueMin1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHueMax1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSatMin1)).BeginInit();
@@ -195,6 +196,11 @@ namespace Image_Tools
             this.numHueMax1.Name = "numHueMax1";
             this.numHueMax1.Size = new System.Drawing.Size(75, 22);
             this.numHueMax1.TabIndex = 2;
+            this.numHueMax1.Value = new decimal(new int[] {
+            179,
+            0,
+            0,
+            0});
             // 
             // numSatMin1
             // 
@@ -221,6 +227,11 @@ namespace Image_Tools
             this.numSatMax1.Name = "numSatMax1";
             this.numSatMax1.Size = new System.Drawing.Size(75, 22);
             this.numSatMax1.TabIndex = 4;
+            this.numSatMax1.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // numValMin1
             // 
@@ -247,6 +258,11 @@ namespace Image_Tools
             this.numValMax1.Name = "numValMax1";
             this.numValMax1.Size = new System.Drawing.Size(75, 22);
             this.numValMax1.TabIndex = 6;
+            this.numValMax1.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // label1
             // 
@@ -334,6 +350,11 @@ namespace Image_Tools
             this.numValMax2.Name = "numValMax2";
             this.numValMax2.Size = new System.Drawing.Size(75, 22);
             this.numValMax2.TabIndex = 18;
+            this.numValMax2.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // numValMin2
             // 
@@ -360,6 +381,11 @@ namespace Image_Tools
             this.numSatMax2.Name = "numSatMax2";
             this.numSatMax2.Size = new System.Drawing.Size(75, 22);
             this.numSatMax2.TabIndex = 16;
+            this.numSatMax2.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // numSatMin2
             // 
@@ -386,6 +412,11 @@ namespace Image_Tools
             this.numHueMax2.Name = "numHueMax2";
             this.numHueMax2.Size = new System.Drawing.Size(75, 22);
             this.numHueMax2.TabIndex = 14;
+            this.numHueMax2.Value = new decimal(new int[] {
+            179,
+            0,
+            0,
+            0});
             // 
             // numHueMin2
             // 
@@ -462,6 +493,11 @@ namespace Image_Tools
             this.numValMax3.Name = "numValMax3";
             this.numValMax3.Size = new System.Drawing.Size(75, 22);
             this.numValMax3.TabIndex = 25;
+            this.numValMax3.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // numValMin3
             // 
@@ -514,6 +550,11 @@ namespace Image_Tools
             this.numHueMax3.Name = "numHueMax3";
             this.numHueMax3.Size = new System.Drawing.Size(75, 22);
             this.numHueMax3.TabIndex = 21;
+            this.numHueMax3.Value = new decimal(new int[] {
+            179,
+            0,
+            0,
+            0});
             // 
             // numHueMin3
             // 
@@ -551,6 +592,11 @@ namespace Image_Tools
             this.numValMax4.Name = "numValMax4";
             this.numValMax4.Size = new System.Drawing.Size(75, 22);
             this.numValMax4.TabIndex = 32;
+            this.numValMax4.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // numValMin4
             // 
@@ -577,6 +623,11 @@ namespace Image_Tools
             this.numSatMax4.Name = "numSatMax4";
             this.numSatMax4.Size = new System.Drawing.Size(75, 22);
             this.numSatMax4.TabIndex = 30;
+            this.numSatMax4.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // numSatMin4
             // 
@@ -603,6 +654,11 @@ namespace Image_Tools
             this.numHueMax4.Name = "numHueMax4";
             this.numHueMax4.Size = new System.Drawing.Size(75, 22);
             this.numHueMax4.TabIndex = 28;
+            this.numHueMax4.Value = new decimal(new int[] {
+            179,
+            0,
+            0,
+            0});
             // 
             // numHueMin4
             // 
@@ -626,6 +682,7 @@ namespace Image_Tools
             this.btn_cleanListViewRemBg.TabIndex = 33;
             this.btn_cleanListViewRemBg.Text = "Clear";
             this.btn_cleanListViewRemBg.UseVisualStyleBackColor = true;
+            this.btn_cleanListViewRemBg.Click += new System.EventHandler(this.btn_cleanListViewRemBg_Click);
             // 
             // btn_RemBgSelectFolder
             // 
@@ -710,11 +767,22 @@ namespace Image_Tools
             this.checkBox1.Text = "Transparent";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(440, 186);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(54, 17);
+            this.label12.TabIndex = 47;
+            this.label12.Text = "label12";
+            this.label12.Visible = false;
+            // 
             // RemoveBackground
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(890, 368);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.btn_remBg_preview);
             this.Controls.Add(this.btn_addBgColor);
@@ -858,5 +926,6 @@ namespace Image_Tools
         private Button btn_addBgColor;
         private Button btn_remBg_preview;
         private CheckBox checkBox1;
+        private Label label12;
     }
 }

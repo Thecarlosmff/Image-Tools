@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Image_Tools
 {
     class Text
     {
-        public List<string> content;
-        public string lang_con;
-        public List<string> content_trans;
-        public string lang_trans;
-        public string img_path;
+        public List<string> content = new List<string>();
+        public string lang_con = "auto";
+        public List<string> content_trans = new List<string>();
+        public string lang_trans = "";
+        public string img_path = "";
 
         //private string name; // field
         //public string Name   // property

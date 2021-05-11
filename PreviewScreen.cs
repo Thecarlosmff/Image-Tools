@@ -160,6 +160,7 @@ namespace Image_Tools
         private void Button1_Click(object sender, EventArgs e)
         {
             if (OPath == "") return;
+            TranslationTools.show_MSG(label7, "Please wait...", Color.FromArgb(150, 255, 10, 10), 1);
             UpdateImage(true);
         }
         private void RemoveImageBackground()

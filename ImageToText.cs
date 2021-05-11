@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Windows.Threading;
-using System.Xml;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Image_Tools
 {
@@ -19,31 +13,21 @@ namespace Image_Tools
     {
         string TESSERACT_EXE = "D:\\Programas\\Tesseract-OCR\\tesseract.exe";
         List<Text> listText = new List<Text>();
+        string special = ((char)12).ToString();
         public ImageToText()
         {
             InitializeComponent();
-
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             //string path = "C:\\Screenshots\\4.png";
             string middle = "stdout";
+            if (OCRCombo.SelectedItem != null)
+                middle += " -l " + TranslationTools.getOCRLang(OCRCombo.SelectedItem.ToString());
+            else
+                middle += " -l eng";
+            TranslationTools.show_MSG(label1, "Please wait...", Color.FromArgb(150, 255, 10, 10), 1);
             foreach (ListViewItem item in listView1.Items) //percorre todos os ficheiros
             {
                 try
@@ -55,9 +39,9 @@ namespace Image_Tools
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
-        }
 
-        void OCR(string program,string cmdargs,string cmdargs2)
+        }
+        void OCR(string program, string cmdargs, string cmdargs2)
         {
             var proc = new Process()
             {
@@ -77,21 +61,33 @@ namespace Image_Tools
 
             string output;
             Text txt = new Text();
-            txt.content = new List<string>();
-            txt.content_trans = new List<string>();
+            //int count = 0;
             while ((output = proc.StandardOutput.ReadLine()) != null)
             {
-                if (output == "")                       continue;
-                if (output == ((char)12).ToString())    break;
+                if (output == "" | output == " ")
+                {
+                    //count++;
+                    continue;
+                }
+                // else
+                //{
+                // if (!(count % 2 == 0))
+                //     txt.content.Add("");
+                // count = 0;
+
+                // }
+                //}
+                if (output == ((char)12).ToString()) break;
+                if (CheckReplace1.Checked) output = output.Replace("|", "I");
                 txt.content.Add(output);
-                    
+                //previous = output;
+
             }
-            
+
             proc.WaitForExit();
             txt.img_path = cmdargs;
             listText.Add(txt);
         }
-
         void RunWithRedirect(string program, string cmdargs, string cmdargs2)
         {
             var proc = new Process()
@@ -112,13 +108,12 @@ namespace Image_Tools
             proc.OutputDataReceived += proc_DataReceived; //to use with "proc_DataReceived"
 
             proc.Start();
-          
+
             proc.BeginErrorReadLine(); //error messages;
             proc.BeginOutputReadLine();
 
             proc.WaitForExit();
         }
-
         void proc_DataReceived(object sender, DataReceivedEventArgs e)
         {
             //MessageBox.Show("Hello");
@@ -130,30 +125,29 @@ namespace Image_Tools
                 //Dispatcher.BeginInvoke(new Action(() => txtOut.Text += (Environment.NewLine + e.Data)));
             }
         }
-        void Translation(string inLang,string outLang,Text T)
+        void Translation(string inLang, string outLang, Text T)
         {
             string concat = "";
             for (int i = 0; i < T.content.Count; i++)
             {
-                if (!(inLang == "ja")) //not japonese verify , probably chinese are other asiatic languages that dont use spaces (or are optional) (why????)
-                    concat += T.content[i] + " ";
-                else
-                    concat += T.content[i];
+                concat += T.content[i] + " ";
             }
-            if (!(inLang == "ja"))
-                concat = concat.Remove(concat.Length - 1);
+            concat = concat.Remove(concat.Length - 1);
             //MessageBox.Show("\""+concat+"\"");
 
             //MessageBox.Show(handleTranslation("en", "ja", concat));
+            T.content_trans.Clear();
             string a = handleTranslation(inLang, outLang, concat);
-            if(a != null)
+            if (a != null)
             {
+                a = TranslationTools.ReplaceASCII(a);
                 T.content_trans.Add(a);
+                T.lang_trans = outLang;
             }
         }
-        private string handleTranslation(string InLang,string OutLang,string text)
+        private string handleTranslation(string InLang, string OutLang, string text)
         {
-            string url = "https://translate.google.com/m?hl=?" + InLang + "&sl=" + InLang + "&tl=" + OutLang + "&ie=UTF-16&prev=_m&q=" + text;
+            string url = "https://translate.google.com/m?hl=?" + InLang + "&sl=" + InLang + "&tl=" + OutLang + "&ie=UTF-8&prev=_m&q=" + text;
 
             WebClient web = new WebClient();
             web.Encoding = System.Text.Encoding.UTF8;
@@ -169,61 +163,333 @@ namespace Image_Tools
             }
 
         }
-
         public static string GetBetween(string source, string start, string end)
         {
             var startPos = source.IndexOf(start, StringComparison.Ordinal);
             if (startPos < 0) return null;
             startPos += start.Length;
             var endPos = source.IndexOf(end, startPos, StringComparison.Ordinal);
-            return endPos < 0 ? null : source.Substring(startPos, endPos - startPos - 1);
-        }
+            //return endPos < 0 ? null : source.Substring(startPos, endPos - startPos - 1);
 
+            return endPos < 0 ? null : source.Substring(startPos, endPos - startPos);
+        }
         private void TranslateAll(List<Text> T)
         {
             for (int i = 0; i < T.Count; i++)
-                Translation("en", "pt", T[i]);
+                //Translation(T[i].lang_con, TranslationTools.getTranslationStr(TransCombo.SelectedText), T[i]);
+                if (TransCombo.SelectedItem != null)
+                    Translation("auto", TranslationTools.getTranslationStr(TransCombo.SelectedItem.ToString()), T[i]);
+                else
+                    Translation("auto", "eng", T[i]);
             //MessageBox.Show("Translation Done! Good Work!");
         }
-
-
         private void label2_Click(object sender, EventArgs e)
         {
 
         }
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
-
         private void Btn_SelectImages(object sender, EventArgs e)
         {
             TranslationTools.FillList(listView1, openFileDialog1);
         }
-
+        private void SaveToFileCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            TranslationTools.show_MSG(label1, "Please wait...", Color.FromArgb(150, 255, 10, 10), 1);
+            TranslateAll(listText);
+        }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(comboBox1.SelectedIndex==2)
+
+        }
+        private void btnSaveToFile_Click(object sender, EventArgs e)
+        {
+            //SaveToTxt_Original(listText);
+            //SaveToTxt_Translated(listText);
+            //SaveToTxt_Both(listText);
+            ////SaveToExcel_both(listText,1,1);
+            //SaveExcel(listText,1,1);
+            //SaveWord(listText);
+            if (comboBox4.SelectedIndex == -1) ;
+            switch (comboBox4.SelectedIndex)
             {
-                numericUpDown1.Visible = true;
-                numericUpDown2.Visible = true;
-                label1.Visible = true;
-                label2.Visible = true;
+                case 0:
+                    Save("Text File|*.txt"); //txt original
+                    break;
+                case 1: //txt translation
+                    Save("Text File|*.txt");
+                    break;
+                case 2: //txt both
+                    Save("Text File|*.txt");
+                    break;
+                case 3: //word
+                    Save("Word Document|*.docx");
+                    break;
+                case 4://excel
+                    Save("Excel|*.xls");
+                    break;
+
+            }
+        }
+        private void Save(string extension)
+        {
+            // https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-save-files-using-the-savefiledialog-component?view=netframeworkdesktop-4.8
+            if (listText.Count > 0)
+            {
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = extension;
+                saveFileDialog1.Title = "Save the document";
+                saveFileDialog1.ShowDialog();
+
+                if (saveFileDialog1.FileName != "")
+                {
+                    TranslationTools.show_MSG(label1, "Please wait...", Color.FromArgb(150, 255, 10, 10), 1);
+                    switch (comboBox4.SelectedIndex)
+                    {
+                        case 0://txt original  
+                            SaveToTxt_Original(listText, saveFileDialog1.FileName); break;
+                        case 1: //txt translation
+                            SaveToTxt_Translated(listText, saveFileDialog1.FileName); break;
+                        case 2: //txt both
+                            SaveToTxt_Both(listText, saveFileDialog1.FileName); break;
+                        case 3: //word
+                            SaveWord(listText, saveFileDialog1.FileName); break;
+                        case 4://excel
+                            SaveExcel(listText, 1, 1, saveFileDialog1.FileName); break;
+
+                    }
+                }
             }
             else
             {
-                numericUpDown1.Visible = false;
-                numericUpDown2.Visible = false;
-                label1.Visible = false;
-                label2.Visible = false;
+                MessageBox.Show("No data available!");
             }
         }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void SaveWord(List<Text> list, string filename)
         {
-            TranslateAll(listText);
-            int a = 1;
+            //https://stackoverflow.com/questions/38356903/how-to-write-text-into-a-word-file-using-c-net
+            Microsoft.Office.Interop.Word.Application app = new Microsoft.Office.Interop.Word.Application();
+            Microsoft.Office.Interop.Word.Document doc;
+            object oMissing = null;
+            object missing = null;
+            try
+            {
+                oMissing = System.Reflection.Missing.Value;
+                missing = System.Reflection.Missing.Value;
+                doc = app.Documents.Add(ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+                doc.Content.Font.Size = 9;
+                //doc.Content.Font.Bold = 1;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    //foreach (string line in sentence.content)
+                    for (int j = 0; j < list[i].content.Count; j++)
+                    {
+                        //doc.Content.Text += list[i].content[j] + ((char)13);
+                        doc.Content.Text += list[i].content[j];
+                    }
+                    doc.Content.Text += ((char)12);
+                    for (int k = 0; k < list[i].content_trans.Count; k++)
+                    {
+                        //doc.Content.Text += list[i].content_trans[k] + ((char)13);
+                        doc.Content.Text += list[i].content_trans[k];
+                    }
+                    if (!(i + 1 == list.Count))
+                        doc.Content.Text += ((char)12);
+                }
+
+                doc.SaveAs2(filename);
+                doc.Save();
+                doc.Close();
+
+                app.Visible = false;    //Optional
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Marshal.ReleaseComObject(app);
+            }
+        }
+        private void SaveExcel(List<Text> list, int row, int column, string fileName)
+        {
+            Excel.Application xlApp = new Excel.Application();
+
+            if (xlApp == null)
+            {
+                MessageBox.Show("Excel is not properly installed!!");
+                return;
+            }
+
+
+            Excel.Workbook xlWorkBook;
+            Excel.Worksheet xlWorkSheet;
+            object misValue = System.Reflection.Missing.Value;
+
+            xlWorkBook = xlApp.Workbooks.Add(misValue);
+            xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+            string temp = "";
+            for (int i = 0; i < list.Count; i++)
+            {
+                //foreach (string line in sentence.content)
+                for (int j = 0; j < list[i].content.Count; j++)
+                {
+                    temp += list[i].content[j] + " " + ((char)10);
+                }
+                if (temp.Length > 0)
+                    temp = temp.Remove(temp.Length - 1);
+                xlWorkSheet.Cells[row, column] = temp;
+                temp = "";
+
+                for (int k = 0; k < list[i].content_trans.Count; k++)
+                {
+                    temp += list[i].content_trans[k] + " " + ((char)10);
+                }
+                if (temp.Length > 0)
+                    temp = temp.Remove(temp.Length - 1);
+                xlWorkSheet.Cells[row, column + 2] = list[i].img_path;
+                xlWorkSheet.Cells[row, column + 1] = temp;
+                temp = "";
+                row++;
+            }
+
+
+
+            xlWorkBook.SaveAs(fileName, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+            xlWorkBook.Close(true, misValue, misValue);
+            xlApp.Quit();
+
+            Marshal.ReleaseComObject(xlWorkSheet);
+            Marshal.ReleaseComObject(xlWorkBook);
+            Marshal.ReleaseComObject(xlApp);
+
+            //MessageBox.Show("Excel file created , you can find the file d:\\csharp-Excel.xls");
+        }
+        private void SaveToTxt_Both(List<Text> list, string fileName)
+        {
+            try
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
+                {
+                    //foreach (Text sentence in list)
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        //foreach (string line in sentence.content)
+                        for (int j = 0; j < list[i].content.Count; j++)
+                        {
+                            file.WriteLine(list[i].content[j]);
+                            //file.WriteLine(line);
+                        }
+                        //file.WriteLine((char)12);
+                        file.WriteLine();
+
+                        for (int k = 0; k < list[i].content_trans.Count; k++)
+                        {
+                            if (i + 1 == list.Count & k + 1 == list[i].content_trans.Count) //ultima linha de tudo
+                                file.Write(list[i].content_trans[k]);
+                            else
+                                file.WriteLine(list[i].content_trans[k]);
+                            //file.WriteLine(line);
+                        }
+                        if (!(i + 1 == list.Count))
+                            //file.WriteLine((char)12);
+                            file.WriteLine((char)13);
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+            }
+        }
+        private void SaveToTxt_Translated(List<Text> list, string fileName)
+        {
+            try
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
+                {
+                    //foreach (Text sentence in list)
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        //foreach (string line in sentence.content)
+                        for (int j = 0; j < list[i].content_trans.Count; j++)
+                        {
+                            if (i + 1 == list.Count & j + 1 == list[i].content_trans.Count) //ultima linha de tudo
+                                file.Write(list[i].content_trans[j]);
+                            else
+                                file.WriteLine(list[i].content_trans[j]);
+                            //file.WriteLine(line);
+                        }
+                        if (!(i + 1 == list.Count))
+                            file.WriteLine((char)12);
+                        //file.Write((char)12);
+                        //file.WriteLine();
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+            }
+        }
+        private void SaveToTxt_Original(List<Text> list, string fileName)
+        {
+            try
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(fileName))
+                {
+                    //foreach (Text sentence in list)
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        //foreach (string line in sentence.content)
+                        for (int j = 0; j < list[i].content.Count; j++)
+                        {
+                            if (i + 1 == list.Count & j + 1 == list[i].content.Count) //ultima linha de tudo
+                                file.Write(list[i].content[j]);
+                            else
+                                file.WriteLine(list[i].content[j]);
+                            //file.WriteLine(line);
+                        }
+                        if (!(i + 1 == list.Count))
+                            file.WriteLine((char)12);
+                        //file.Write((char)12);
+                        //file.WriteLine();
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+            }
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            TranslationTools.CleanListView(listView1);
+        }
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.listView1.SelectedItems != null)
+            {
+                //list_RemBg.Add(list_RemBg.SelectedItems);
+                this.listView1.Items.Remove(listView1.SelectedItems[0]);
+            }
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            listText.Clear();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

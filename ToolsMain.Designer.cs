@@ -31,16 +31,13 @@ namespace Image_Tools
         { 
             this.btn_MainBackground = new System.Windows.Forms.Button();
             this.btn_MainImageToText = new System.Windows.Forms.Button();
-            this.btn_MainTxtToExcel = new System.Windows.Forms.Button();
-            this.btn_MainTranslate = new System.Windows.Forms.Button();
-            this.label_MainBackground = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_MainBackground
             // 
-            this.btn_MainBackground.Location = new System.Drawing.Point(80, 56);
+            this.btn_MainBackground.Location = new System.Drawing.Point(273, 90);
             this.btn_MainBackground.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_MainBackground.Name = "btn_MainBackground";
             this.btn_MainBackground.Size = new System.Drawing.Size(150, 40);
@@ -51,7 +48,7 @@ namespace Image_Tools
             // 
             // btn_MainImageToText
             // 
-            this.btn_MainImageToText.Location = new System.Drawing.Point(80, 108);
+            this.btn_MainImageToText.Location = new System.Drawing.Point(273, 178);
             this.btn_MainImageToText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_MainImageToText.Name = "btn_MainImageToText";
             this.btn_MainImageToText.Size = new System.Drawing.Size(150, 40);
@@ -59,39 +56,6 @@ namespace Image_Tools
             this.btn_MainImageToText.Text = "Image to Text";
             this.btn_MainImageToText.UseVisualStyleBackColor = true;
             this.btn_MainImageToText.Click += new System.EventHandler(this.Btn_MainImageToText_Click);
-            // 
-            // btn_MainTxtToExcel
-            // 
-            this.btn_MainTxtToExcel.Location = new System.Drawing.Point(80, 160);
-            this.btn_MainTxtToExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn_MainTxtToExcel.Name = "btn_MainTxtToExcel";
-            this.btn_MainTxtToExcel.Size = new System.Drawing.Size(150, 40);
-            this.btn_MainTxtToExcel.TabIndex = 3;
-            this.btn_MainTxtToExcel.Text = "Text File to Excel";
-            this.btn_MainTxtToExcel.UseVisualStyleBackColor = true;
-            this.btn_MainTxtToExcel.Click += new System.EventHandler(this.Btn_MainTxtToExcel_Click);
-            // 
-            // btn_MainTranslate
-            // 
-            this.btn_MainTranslate.Location = new System.Drawing.Point(80, 212);
-            this.btn_MainTranslate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn_MainTranslate.Name = "btn_MainTranslate";
-            this.btn_MainTranslate.Size = new System.Drawing.Size(150, 40);
-            this.btn_MainTranslate.TabIndex = 4;
-            this.btn_MainTranslate.Text = "Translate";
-            this.btn_MainTranslate.UseVisualStyleBackColor = true;
-            this.btn_MainTranslate.Click += new System.EventHandler(this.Btn_MainTranslate_Click);
-            // 
-            // label_MainBackground
-            // 
-            this.label_MainBackground.AutoSize = true;
-            this.label_MainBackground.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.label_MainBackground.Location = new System.Drawing.Point(240, 60);
-            this.label_MainBackground.Name = "label_MainBackground";
-            this.label_MainBackground.Size = new System.Drawing.Size(250, 19);
-            this.label_MainBackground.TabIndex = 5;
-            this.label_MainBackground.Text = "Description of the background remover";
-            this.label_MainBackground.Click += new System.EventHandler(this.Label1_Click);
             // 
             // linkLabel1
             // 
@@ -120,9 +84,6 @@ namespace Image_Tools
             this.ClientSize = new System.Drawing.Size(720, 324);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.label_MainBackground);
-            this.Controls.Add(this.btn_MainTranslate);
-            this.Controls.Add(this.btn_MainTxtToExcel);
             this.Controls.Add(this.btn_MainImageToText);
             this.Controls.Add(this.btn_MainBackground);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -138,9 +99,6 @@ namespace Image_Tools
 
         private System.Windows.Forms.Button btn_MainBackground;
         private System.Windows.Forms.Button btn_MainImageToText;
-        private System.Windows.Forms.Button btn_MainTxtToExcel;
-        private System.Windows.Forms.Button btn_MainTranslate;
-        private System.Windows.Forms.Label label_MainBackground;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label1;
     }

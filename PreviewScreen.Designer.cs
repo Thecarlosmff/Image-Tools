@@ -60,6 +60,7 @@ namespace Image_Tools
             this.imageToolsDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.backgroundColorsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.backgroundColorsTableAdapter = new Image_Tools.ImageToolsDataSetTableAdapters.BackgroundColorsTableAdapter();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -353,11 +354,22 @@ namespace Image_Tools
             // 
             this.backgroundColorsTableAdapter.ClearBeforeFill = true;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(438, 256);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(46, 17);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "label7";
+            this.label7.Visible = false;
+            // 
             // Form_PreviewBG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 623);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.checkBox6);
             this.Controls.Add(this.checkBox5);
@@ -432,5 +444,6 @@ namespace Image_Tools
         private ImageToolsDataSet imageToolsDataSet;
         private System.Windows.Forms.BindingSource backgroundColorsBindingSource;
         private ImageToolsDataSetTableAdapters.BackgroundColorsTableAdapter backgroundColorsTableAdapter;
+        private System.Windows.Forms.Label label7;
     }
 }

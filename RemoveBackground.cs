@@ -43,6 +43,12 @@ namespace Image_Tools
 
         private void Btn_RemoveBackground_Click(object sender, EventArgs e)
         {
+            if (output_local.Text == "")
+            {
+                MessageBox.Show("Select a output folder, images with the same name will be overwrited");
+                return;
+            }
+            TranslationTools.show_MSG(label12, "Please wait...", Color.FromArgb(150, 255, 10, 10), 1);
             foreach (ListViewItem item in list_RemBg.Items) //percorre todos os ficheiros
             {
                 try
@@ -204,6 +210,46 @@ namespace Image_Tools
         private void list_RemBg_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_cleanListViewRemBg_Click(object sender, EventArgs e)
+        {
+            TranslationTools.CleanListView(list_RemBg);
+            numHueMin1.Value = 0;
+            numHueMin2.Value = 0;
+            numHueMin3.Value = 0;
+            numHueMin4.Value = 0;
+
+            numHueMax1.Value = 179;
+            numHueMax2.Value = 179;
+            numHueMax3.Value = 179;
+            numHueMax4.Value = 179;
+
+            numSatMin1.Value = 0;
+            numSatMin2.Value = 0;
+            numSatMin3.Value = 0;
+            numSatMin4.Value = 0;
+
+            numSatMax1.Value = 255;
+            numSatMax2.Value = 255;
+            numSatMax3.Value = 255;
+            numSatMax4.Value = 255;
+
+            numValMin1.Value = 0;
+            numValMin2.Value = 0;
+            numValMin3.Value = 0;
+            numValMin4.Value = 0;
+
+            numValMax1.Value = 255;
+            numValMax2.Value = 255;
+            numValMax3.Value = 255;
+            numValMax4.Value = 255;
+
+            checkBox1.Checked = false;
+            HSVBox1.Checked = false;
+            HSVBox2.Checked = false;
+            HSVBox3.Checked = false;
+            comboColors.SelectedIndex = 0;
         }
     }
 }
