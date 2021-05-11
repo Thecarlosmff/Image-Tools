@@ -522,5 +522,15 @@ namespace Image_Tools
             }; timer.Start();
             l.Refresh();
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
     }
 }

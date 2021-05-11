@@ -29,9 +29,12 @@ namespace Image_Tools
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageToText));
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.CheckReplace1 = new System.Windows.Forms.CheckBox();
             this.btnSaveToFile = new System.Windows.Forms.Button();
             this.TransCombo = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
@@ -44,8 +47,6 @@ namespace Image_Tools
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.CheckReplace1 = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,6 +102,29 @@ namespace Image_Tools
             this.panel1.Size = new System.Drawing.Size(835, 624);
             this.panel1.TabIndex = 5;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(288, 281);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(93, 32);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "label1";
+            this.label1.Visible = false;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // CheckReplace1
+            // 
+            this.CheckReplace1.AutoSize = true;
+            this.CheckReplace1.Location = new System.Drawing.Point(698, 546);
+            this.CheckReplace1.Name = "CheckReplace1";
+            this.CheckReplace1.Size = new System.Drawing.Size(134, 21);
+            this.CheckReplace1.TabIndex = 17;
+            this.CheckReplace1.Text = "Replace | for I (i)";
+            this.CheckReplace1.UseVisualStyleBackColor = true;
             // 
             // btnSaveToFile
             // 
@@ -344,35 +368,16 @@ namespace Image_Tools
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // CheckReplace1
-            // 
-            this.CheckReplace1.AutoSize = true;
-            this.CheckReplace1.Location = new System.Drawing.Point(698, 546);
-            this.CheckReplace1.Name = "CheckReplace1";
-            this.CheckReplace1.Size = new System.Drawing.Size(134, 21);
-            this.CheckReplace1.TabIndex = 17;
-            this.CheckReplace1.Text = "Replace | for I (i)";
-            this.CheckReplace1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(288, 281);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 32);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "label1";
-            this.label1.Visible = false;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
             // ImageToText
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(836, 624);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ImageToText";
             this.Text = "ImageToText";
             this.panel1.ResumeLayout(false);

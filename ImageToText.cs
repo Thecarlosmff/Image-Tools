@@ -11,7 +11,8 @@ namespace Image_Tools
 {
     public partial class ImageToText : Form
     {
-        string TESSERACT_EXE = "D:\\Programas\\Tesseract-OCR\\tesseract.exe";
+        //string TESSERACT_EXE = "D:\\Programas\\Tesseract-OCR\\tesseract.exe";
+        string TESSERACT_EXE = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Tesseract-OCR\\tesseract.exe";
         List<Text> listText = new List<Text>();
         string special = ((char)12).ToString();
         public ImageToText()

@@ -33,6 +33,7 @@ namespace Image_Tools
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemoveBackground));
             this.RemBgSelectImages = new System.Windows.Forms.OpenFileDialog();
             this.btn_RemBgSelectImages = new System.Windows.Forms.Button();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -832,7 +833,11 @@ namespace Image_Tools
             this.Controls.Add(this.btn_RemoveBackground);
             this.Controls.Add(this.list_RemBg);
             this.Controls.Add(this.btn_RemBgSelectImages);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "RemoveBackground";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Remove Background";
