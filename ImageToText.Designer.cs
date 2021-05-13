@@ -380,6 +380,16 @@ namespace Image_Tools
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // btn_edit
+            // 
+            this.btn_edit.Location = new System.Drawing.Point(627, 573);
+            this.btn_edit.Name = "btn_edit";
+            this.btn_edit.Size = new System.Drawing.Size(155, 39);
+            this.btn_edit.TabIndex = 19;
+            this.btn_edit.Text = "Edit/Preview";
+            this.btn_edit.UseVisualStyleBackColor = true;
+            this.btn_edit.Click += new System.EventHandler(this.btn_edit_Click);
+            // 
             // ImageToText
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);

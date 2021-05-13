@@ -43,6 +43,7 @@ namespace Image_Tools
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
+            listView1.Clear();
 
         }
         void OCR(string program, string cmdargs, string cmdargs2)

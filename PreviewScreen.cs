@@ -165,15 +165,27 @@ namespace Image_Tools
             //copies the Temp image to another path
             //now use the new temp
             Bitmap image1 = new Bitmap(NPath1, true);
-
-            int x, y, opacity,red,green,blue;
-            bool removeWhite = false;
-            bool removeBlack = false;
-            double hue, saturation, value;
+            int x, y, opacity, red, green, blue;
             if (checkBox1.Checked)
                 opacity = 0; //transparent
             else
                 opacity = 255; //solid
+            if (checkBox7.Checked == true)
+            {
+                image1 = TranslationTools.ToGrey(image1);
+            }
+            if(checkBox8.Checked == true)
+            {
+                image1 = TranslationTools.ToBlackAndWhite(image1, opacity, Convert.ToInt32(numericUpDown7.Value));
+                SaveImage(NPath, image1);
+                image1.Dispose();
+                return;
+            }
+
+            
+            bool removeWhite = false;
+            bool removeBlack = false;
+            double hue, saturation, value;
             if (checkBox2.Checked)
                 removeWhite = true;
             if (checkBox3.Checked)
@@ -235,13 +247,17 @@ namespace Image_Tools
             }
 
             //-------------
+            SaveImage(NPath, image1);
+            image1.Dispose();
+        }
+        private void SaveImage(string NPath,Bitmap image1)
+        {
             if (System.IO.File.Exists(NPath))
                 System.IO.File.Delete(NPath);
             Bitmap image2 = new Bitmap(NPath1, true);
             image1.Save(NPath, ImageFormat.Png); //save the image
-            image1.Dispose();
-            image2.Dispose();
 
+            image2.Dispose();
         }
         private bool RightColor(double hue, double sat, double val)
         {
@@ -250,9 +266,9 @@ namespace Image_Tools
             //Value 0-255
 
             if (hue == 360)
-                hue = 360 - 2;
-            hue = hue / 2;
+                hue = hue / 2;
             int IntHue = Convert.ToInt32(hue);
+            if (IntHue > 179) IntHue = 179;
             int IntSat = Convert.ToInt32(sat * 255);
             int IntVal = Convert.ToInt32(val * 255);
             List<List<int>> ListArrays = new List<List<int>>();
@@ -353,6 +369,11 @@ namespace Image_Tools
         {
             // TODO: This line of code loads data into the 'imageToolsDataSet.BackgroundColors' table. You can move, or remove it, as needed.
             //this.backgroundColorsTableAdapter.Fill(this.imageToolsDataSet.BackgroundColors);
+
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
     }

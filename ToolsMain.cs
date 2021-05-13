@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Image_Tools
@@ -25,17 +28,6 @@ namespace Image_Tools
             //this.Show();
 
         }
-
-        private void Btn_MainTxtToExcel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Btn_MainTranslate_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Btn_MainImageToText_Click(object sender, EventArgs e)
         {
             ImageToText toText = new ImageToText();
@@ -865,6 +857,49 @@ namespace Image_Tools
                 }
             }
         }
+        public static Bitmap ToGrey(Bitmap image1)
+        {
+            int x, y, temp;
+            double red, blue, green, soma;
 
+            for (x = 0; x < image1.Width; x++)
+            {
+                for (y = 0; y < image1.Height; y++)
+                {
+                    Color pixelColor = image1.GetPixel(x, y); //gets the color of each pixel
+                    red = Int32.Parse(pixelColor.R.ToString());
+                    green = Int32.Parse(pixelColor.R.ToString());
+                    blue = Int32.Parse(pixelColor.R.ToString());
+                    soma = red * 0.3 + green * 0.59 + 0.11 * blue;
+                    temp = Convert.ToInt32(soma);
+                    pixelColor = Color.FromArgb(255, temp, temp, temp);
+                    image1.SetPixel(x, y, pixelColor);
+                }}
+            return image1;
+        }
+
+        public static Bitmap ToBlackAndWhite(Bitmap image,int opacity,int value)
+        {
+            int x, y, red;
+            for (x = 0; x < image.Width; x++)
+            {
+                for (y = 0; y < image.Height; y++)
+                {
+                    Color pixelColor = image.GetPixel(x, y); //gets the color of each pixel
+                    red = Int32.Parse(pixelColor.R.ToString());
+                    if (red >= value)
+                    {
+                        pixelColor = Color.FromArgb(opacity, 255, 255, 255);
+                        image.SetPixel(x, y, pixelColor);
+                    }
+                    else
+                    {
+                        pixelColor = Color.FromArgb(255, 0,0,0);
+                        image.SetPixel(x, y, pixelColor);
+                    }
+                }
+            }
+            return image;
+        }
     }
 }

@@ -91,6 +91,15 @@ namespace Image_Tools
             this.btn_remBg_preview = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numHueMin1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHueMax1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSatMin1)).BeginInit();
@@ -126,7 +135,7 @@ namespace Image_Tools
             // btn_RemBgSelectImages
             // 
             this.btn_RemBgSelectImages.AutoSize = true;
-            this.btn_RemBgSelectImages.Location = new System.Drawing.Point(377, 26);
+            this.btn_RemBgSelectImages.Location = new System.Drawing.Point(507, 20);
             this.btn_RemBgSelectImages.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_RemBgSelectImages.Name = "btn_RemBgSelectImages";
             this.btn_RemBgSelectImages.Size = new System.Drawing.Size(160, 27);
@@ -163,10 +172,10 @@ namespace Image_Tools
             // 
             // btn_RemoveBackground
             // 
-            this.btn_RemoveBackground.Location = new System.Drawing.Point(562, 26);
+            this.btn_RemoveBackground.Location = new System.Drawing.Point(684, 26);
             this.btn_RemoveBackground.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_RemoveBackground.Name = "btn_RemoveBackground";
-            this.btn_RemoveBackground.Size = new System.Drawing.Size(160, 24);
+            this.btn_RemoveBackground.Size = new System.Drawing.Size(160, 53);
             this.btn_RemoveBackground.TabIndex = 9;
             this.btn_RemoveBackground.Text = "Remove Background";
             this.btn_RemoveBackground.UseVisualStyleBackColor = true;
@@ -687,10 +696,10 @@ namespace Image_Tools
             // 
             // btn_RemBgSelectFolder
             // 
-            this.btn_RemBgSelectFolder.Location = new System.Drawing.Point(776, 324);
+            this.btn_RemBgSelectFolder.Location = new System.Drawing.Point(769, 311);
             this.btn_RemBgSelectFolder.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_RemBgSelectFolder.Name = "btn_RemBgSelectFolder";
-            this.btn_RemBgSelectFolder.Size = new System.Drawing.Size(94, 23);
+            this.btn_RemBgSelectFolder.Size = new System.Drawing.Size(112, 41);
             this.btn_RemBgSelectFolder.TabIndex = 34;
             this.btn_RemBgSelectFolder.Text = "Destination";
             this.btn_RemBgSelectFolder.UseVisualStyleBackColor = true;
@@ -700,7 +709,7 @@ namespace Image_Tools
             // 
             this.output_local.AutoSize = true;
             this.output_local.Location = new System.Drawing.Point(96, 323);
-            this.output_local.MaximumSize = new System.Drawing.Size(680, 40);
+            this.output_local.MaximumSize = new System.Drawing.Size(660, 40);
             this.output_local.Name = "output_local";
             this.output_local.Size = new System.Drawing.Size(0, 17);
             this.output_local.TabIndex = 44;
@@ -717,7 +726,7 @@ namespace Image_Tools
             // comboColors
             // 
             this.comboColors.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboColors.Location = new System.Drawing.Point(377, 55);
+            this.comboColors.Location = new System.Drawing.Point(341, 20);
             this.comboColors.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboColors.Name = "comboColors";
             this.comboColors.Size = new System.Drawing.Size(160, 24);
@@ -740,7 +749,7 @@ namespace Image_Tools
             // 
             // btn_addBgColor
             // 
-            this.btn_addBgColor.Location = new System.Drawing.Point(562, 56);
+            this.btn_addBgColor.Location = new System.Drawing.Point(341, 50);
             this.btn_addBgColor.Name = "btn_addBgColor";
             this.btn_addBgColor.Size = new System.Drawing.Size(160, 24);
             this.btn_addBgColor.TabIndex = 10;
@@ -750,7 +759,7 @@ namespace Image_Tools
             // 
             // btn_remBg_preview
             // 
-            this.btn_remBg_preview.Location = new System.Drawing.Point(746, 27);
+            this.btn_remBg_preview.Location = new System.Drawing.Point(850, 26);
             this.btn_remBg_preview.Name = "btn_remBg_preview";
             this.btn_remBg_preview.Size = new System.Drawing.Size(124, 53);
             this.btn_remBg_preview.TabIndex = 11;
@@ -761,7 +770,7 @@ namespace Image_Tools
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(736, 291);
+            this.checkBox1.Location = new System.Drawing.Point(850, 137);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(108, 21);
             this.checkBox1.TabIndex = 46;
@@ -778,11 +787,102 @@ namespace Image_Tools
             this.label12.Text = "label12";
             this.label12.Visible = false;
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(850, 161);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(87, 21);
+            this.checkBox2.TabIndex = 48;
+            this.checkBox2.Text = "To Grey*";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(850, 186);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(87, 17);
+            this.label14.TabIndex = 49;
+            this.label14.Text = "*Applied first";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(850, 209);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(122, 17);
+            this.label15.TabIndex = 50;
+            this.label15.Text = "Checking To Grey";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(850, 243);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(121, 17);
+            this.label16.TabIndex = 51;
+            this.label16.Text = "the quality, mainly";
+            this.label16.Click += new System.EventHandler(this.label16_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(850, 281);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(57, 17);
+            this.label17.TabIndex = 52;
+            this.label17.Text = "see it in";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(904, 282);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(64, 17);
+            this.label18.TabIndex = 53;
+            this.label18.Text = "Preview";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(851, 226);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(109, 17);
+            this.label19.TabIndex = 54;
+            this.label19.Text = "can improve the";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(850, 260);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(81, 17);
+            this.label20.TabIndex = 55;
+            this.label20.Text = "in white text";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Menu;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Location = new System.Drawing.Point(846, 205);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(131, 100);
+            this.panel1.TabIndex = 56;
+            // 
             // RemoveBackground
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(890, 368);
+            this.ClientSize = new System.Drawing.Size(988, 372);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.btn_remBg_preview);
@@ -833,6 +933,8 @@ namespace Image_Tools
             this.Controls.Add(this.btn_RemoveBackground);
             this.Controls.Add(this.list_RemBg);
             this.Controls.Add(this.btn_RemBgSelectImages);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label14);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -932,5 +1034,14 @@ namespace Image_Tools
         private Button btn_remBg_preview;
         private CheckBox checkBox1;
         private Label label12;
+        private CheckBox checkBox2;
+        private Label label14;
+        private Label label15;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private Label label19;
+        private Label label20;
+        private Panel panel1;
     }
 }

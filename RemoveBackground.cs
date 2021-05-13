@@ -56,12 +56,14 @@ namespace Image_Tools
 
                     String result = Path.GetFileNameWithoutExtension(item.SubItems[0].Text);
                     RemoveImageBackground(item.SubItems[0].Text, this.output_local.Text, result + ".png");
+                    
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
+            list_RemBg.Clear();
         }
 
         private void RemoveImageBackground(String path, String new_path, String filename)
@@ -77,8 +79,18 @@ namespace Image_Tools
                 opacity = 0; //transparent
             else
                 opacity = 255; //solid
-
-
+            if (checkBox2.Checked == true)
+            {
+                image1 = TranslationTools.ToGrey(image1);
+            }
+            //if (checkBox3.Checked == true)
+            //{
+            //    image1 = TranslationTools.ToBlackAndWhite(image1,opacity);
+            //    SaveImage(path, new_path, filename, image1);
+            //    image1.Dispose();
+            //    return;
+            //}
+      
             for (x = 0; x < image1.Width; x++)
             {
                 for (y = 0; y < image1.Height; y++)
@@ -101,13 +113,17 @@ namespace Image_Tools
 
 
             //-------------
+            SaveImage(path, new_path, filename, image1);
+            image1.Dispose();
+
+        }
+        private void SaveImage(string path,string new_path,string filename,Bitmap image1)
+        {
             if (path == new_path + "\\" + filename)
                 filename = "_" + filename;
             if (System.IO.File.Exists(new_path + "\\" + filename))
                 System.IO.File.Delete(new_path + "\\" + filename);
             image1.Save(new_path + "\\" + filename, ImageFormat.Png); //save the image
-            image1.Dispose();
-
         }
 
         private bool RightColor(double hue, double sat, double val)
@@ -116,9 +132,9 @@ namespace Image_Tools
             //Saturation 0-255
             //Value 0-255
             if (hue == 360)
-                hue = 360 - 2;
-            hue = hue / 2;
+                hue = hue / 2;
             int IntHue = Convert.ToInt32(hue);
+            if (IntHue > 179) IntHue = 179;
             int IntSat = Convert.ToInt32(sat * 255);
             int IntVal = Convert.ToInt32(val * 255);
 
@@ -150,7 +166,6 @@ namespace Image_Tools
             }
             return result;
         }
-
         private void Btn_RemBgSelectFolder_Click(object sender, EventArgs e)
         {
             this.folderBrowserDialog1.ShowNewFolderButton = true;
@@ -161,7 +176,6 @@ namespace Image_Tools
                 this.output_local.Text = folderBrowserDialog1.SelectedPath;
             }
         }
-
         private void comboColors_SelectedIndexChanged(object sender, EventArgs e)
         {
             count++;
@@ -188,7 +202,6 @@ namespace Image_Tools
                 }
             }
         }
-
         private void Btn_addBgColor_Click(object sender, EventArgs e)
         {
             ColorsManagementDialog ColMan = new ColorsManagementDialog();
@@ -249,6 +262,11 @@ namespace Image_Tools
             HSVBox2.Checked = false;
             HSVBox3.Checked = false;
             comboColors.SelectedIndex = 0;
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -62,6 +62,10 @@ namespace Image_Tools
             this.backgroundColorsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.backgroundColorsTableAdapter = new Image_Tools.ImageToolsDataSetTableAdapters.BackgroundColorsTableAdapter();
             this.label7 = new System.Windows.Forms.Label();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -72,6 +76,7 @@ namespace Image_Tools
             ((System.ComponentModel.ISupportInitialize)(this.imageToolsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageToolsDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.backgroundColorsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -365,11 +370,62 @@ namespace Image_Tools
             this.label7.Text = "label7";
             this.label7.Visible = false;
             // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(910, 472);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(127, 21);
+            this.checkBox7.TabIndex = 24;
+            this.checkBox7.Text = "ConvertToGrey";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
+            // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Location = new System.Drawing.Point(910, 499);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(138, 21);
+            this.checkBox8.TabIndex = 25;
+            this.checkBox8.Text = "To Black && White";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown7
+            // 
+            this.numericUpDown7.Location = new System.Drawing.Point(955, 526);
+            this.numericUpDown7.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown7.Name = "numericUpDown7";
+            this.numericUpDown7.Size = new System.Drawing.Size(63, 22);
+            this.numericUpDown7.TabIndex = 26;
+            this.numericUpDown7.Value = new decimal(new int[] {
+            211,
+            0,
+            0,
+            0});
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(910, 551);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(138, 17);
+            this.label8.TabIndex = 27;
+            this.label8.Text = "Grey to Black Shade";
+            // 
             // Form_PreviewBG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 623);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.numericUpDown7);
+            this.Controls.Add(this.checkBox8);
+            this.Controls.Add(this.checkBox7);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.checkBox6);
@@ -414,6 +470,7 @@ namespace Image_Tools
             ((System.ComponentModel.ISupportInitialize)(this.imageToolsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageToolsDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.backgroundColorsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -450,5 +507,9 @@ namespace Image_Tools
         private System.Windows.Forms.BindingSource backgroundColorsBindingSource;
         private ImageToolsDataSetTableAdapters.BackgroundColorsTableAdapter backgroundColorsTableAdapter;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.NumericUpDown numericUpDown7;
+        private System.Windows.Forms.Label label8;
     }
 }
