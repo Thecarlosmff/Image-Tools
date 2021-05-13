@@ -76,7 +76,7 @@ namespace Image_Tools
         {
             //delete button
             int id = TranslationTools.GetId(deleteBox);
-            if (id == 1)
+            if (id == 13)
             {
                 MessageBox.Show(deleteBox.Text + " can't be deleted");
                 return;
@@ -113,7 +113,7 @@ namespace Image_Tools
         {
             //update button
             int id = TranslationTools.GetId(UpdateBox);
-            if (id == 1)
+            if (id == 13)
             {
                 MessageBox.Show(UpdateBox.Text +" can't be edited");
                 return;
@@ -205,11 +205,11 @@ namespace Image_Tools
                     count = 0;
                     new_nameTextBox.Text = "";
                     new_hueMinNumericUpDown.Value = 0;
-                    new_hueMaxNumericUpDown.Value = 0;
+                    new_hueMaxNumericUpDown.Value = 179;
                     new_satMinNumericUpDown.Value = 0;
-                    new_satMaxNumericUpDown.Value = 0;
+                    new_satMaxNumericUpDown.Value = 255;
                     new_valMinNumericUpDown.Value = 0;
-                    new_valMaxNumericUpDown.Value = 0;
+                    new_valMaxNumericUpDown.Value = 255;
                     //MessageBox.Show(sql);
                     TranslationTools.FillDropDownList("Select * From BackgroundColors Order by IDColor", deleteBox);
                     TranslationTools.FillDropDownList("Select * From BackgroundColors Order by IDColor", UpdateBox);
