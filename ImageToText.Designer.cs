@@ -48,6 +48,7 @@ namespace Image_Tools
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.btn_edit = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -379,6 +380,16 @@ namespace Image_Tools
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // btn_edit
+            // 
+            this.btn_edit.Location = new System.Drawing.Point(627, 573);
+            this.btn_edit.Name = "btn_edit";
+            this.btn_edit.Size = new System.Drawing.Size(155, 39);
+            this.btn_edit.TabIndex = 19;
+            this.btn_edit.Text = "Edit/Preview";
+            this.btn_edit.UseVisualStyleBackColor = true;
+            this.btn_edit.Click += new System.EventHandler(this.btn_edit_Click);
             // 
             // ImageToText
             // 
