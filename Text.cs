@@ -2,7 +2,7 @@
 
 namespace Image_Tools
 {
-    class Text
+    public class Text
     {
         public List<string> content = new List<string>();
         public string lang_con = "auto";

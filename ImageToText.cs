@@ -216,7 +216,11 @@ namespace Image_Tools
             ////SaveToExcel_both(listText,1,1);
             //SaveExcel(listText,1,1);
             //SaveWord(listText);
-            if (comboBox4.SelectedIndex == -1) ;
+            if (comboBox4.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select a type of file");
+                return;
+            }
             switch (comboBox4.SelectedIndex)
             {
                 case 0:
@@ -491,6 +495,15 @@ namespace Image_Tools
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_edit_Click(object sender, EventArgs e)
+        {
+            ModifyText form = new ModifyText();
+            form.passList(this.listText);
+            this.Hide();
+            form.ShowDialog();
+            this.Show();
         }
     }
 }
