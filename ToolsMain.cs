@@ -108,6 +108,25 @@ namespace Image_Tools
                 }
             }
         }
+        public static void FillDropDownSessions(string Query, System.Windows.Forms.ComboBox DropDownName)
+        {
+            DropDownName.DataSource = null;
+            DropDownName.Items.Clear();
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                using (SqlCommand cmd = new SqlCommand(Query, myConnection))
+                {
+                    myConnection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    DataTable dt = new DataTable();
+                    dt.Load(dr);
+                    DropDownName.DataSource = dt;
+                    DropDownName.DisplayMember = "NameSession";
+                    DropDownName.SelectedIndex = -1;
+                    myConnection.Close();
+                }
+            }
+        }
         public static void clearPictureBox(PictureBox pic)
         {
             if (pic.Image != null)
@@ -151,7 +170,6 @@ namespace Image_Tools
             else
                 return Color.FromArgb(255, v, p, q);
         }
-
         //Bitmap image1;
         public static Bitmap TransformToHSV(String path)
         {
@@ -183,8 +201,6 @@ namespace Image_Tools
             }
 
         }
-
-
         public static bool CheckBound(List<int> IntList, int Hue, int Sat, int Val)
         {
             //IntList[0] = Min Hue
@@ -532,5 +548,323 @@ namespace Image_Tools
         {
 
         }
+        public static int GetLastId()
+        {
+            int lastID = 0;
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                //string sql = "SELECT IDENT_CURRENT FROM images";
+                string sql = "SELECT TOP(1) Id FROM images ORDER BY 1 DESC";
+                using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                {
+                    cmd.Parameters.AddWithValue("@LASTID", lastID);
+                    myConnection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    DataTable dt = new DataTable();
+                    dt.Load(dr);
+                    lastID = Int32.Parse(dt.Rows[0].ItemArray[0].ToString());
+                    dt.Dispose();
+                    myConnection.Close();
+
+                }
+            }
+            return lastID;
+        }
+        public static void InsertImagePath(Text text)
+        {
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                string temp = (text.img_path).Replace("'", "''");
+                string sql = "INSERT INTO dbo.images (image_path) VALUES ('" + temp + "');";
+                using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                {
+                    myConnection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    DataTable dt = new DataTable();
+                    dt.Load(dr);
+                    myConnection.Close();
+
+                }
+            }
+        }
+        public static void InsertScript(Text text, int Id) 
+        {
+            string temp = "";
+            for (int i = 0; i < text.content.Count; i++)
+            {
+                using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+                {
+                    temp = text.content[i].Replace("'", "''");
+                    string sql = "INSERT INTO dbo.TextOriginal (OText,FK_Original_ID) VALUES ('" + temp + "'," + Id + ");";
+                    //MessageBox.Show(sql);
+                    using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                    {
+                        myConnection.Open();
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                        myConnection.Close();
+
+                    }
+                }
+            }
+            for (int i = 0; i < text.content_trans.Count; i++)
+            {
+                using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+                {
+                    temp = text.content_trans[i].Replace("'","''");
+                    string sql = "INSERT INTO dbo.TextTranslated (TText,FK_Translated_ID) VALUES ('" + temp + "'," + Id + ");";
+                    using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                    {
+                        myConnection.Open();
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                        myConnection.Close();
+
+                    }
+                }
+            }
+        }
+        public static void InsertSession(string name, int LastId)
+        {
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                string sql = "INSERT INTO dbo.Session (NameSession,IdImage) VALUES ('" + name + "'," + LastId + ");";
+                using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                {
+                    myConnection.Open();
+                    _= cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    myConnection.Close();
+
+                }
+            }
+        }
+        public static List<string> GetSessionNames()
+        {
+            List<string> l = new List<string>();
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                string sql = "SELECT DISTINCT NameSession from Session;";
+                using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                {
+                    myConnection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    DataTable dt = new DataTable();
+                    dt.Load(dr);
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                            l.Add(dt.Rows[i].ItemArray[0].ToString());
+
+                    dt.Dispose();
+                    myConnection.Close();
+                    return l;
+                }
+            }
+        }
+        public static List<int> GetListOfIds(string SessionName)
+        {
+            List<int> l = new List<int>();
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                SessionName = SessionName.Replace("'", "''");
+                string sql = "SELECT Id from images Inner JOIN Session ON images.Id=Session.IdImage WHERE Session.NameSession ='"+ SessionName + "';";
+                using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                {
+                    myConnection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    DataTable dt = new DataTable();
+                    dt.Load(dr);
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                        l.Add(Int32.Parse(dt.Rows[i].ItemArray[0].ToString()));
+
+                    dt.Dispose();
+                    myConnection.Close();
+
+                }
+            }
+            return l;
+
+        }
+        public static List<Text> LoadFromDB(string SessionName)
+        {
+            List<Text> T = new List<Text>();
+            List<int> ListOfItens = GetListOfIds(SessionName);
+
+            for(int i = 0; i < ListOfItens.Count; i++)
+            {
+                Text text = new Text();
+                using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+                {
+                    string sql = "SELECT TextOriginal.OText From images Inner JOIN TextOriginal ON images.Id = TextOriginal.FK_Original_ID WHERE Id = " + ListOfItens[i] + ";";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                    {
+                        myConnection.Open();
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                        DataTable dt = new DataTable();
+                        dt.Load(dr);
+                        //lastID = Int32.Parse(dt.Rows[0].ItemArray[0].ToString());
+                        for(int j = 0;j<dt.Rows.Count;j++)
+                        {
+                            text.content.Add(dt.Rows[j].ItemArray[0].ToString());
+                        }
+                        myConnection.Close();
+
+                    }
+                }
+
+                using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+                {
+                    string sql = "SELECT TextTranslated.TText From images Inner JOIN TextTranslated ON images.Id = TextTranslated.FK_Translated_ID WHERE Id = " + ListOfItens[i] + ";";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                    {
+                        myConnection.Open();
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                        DataTable dt = new DataTable();
+                        dt.Load(dr);
+                        //lastID = Int32.Parse(dt.Rows[0].ItemArray[0].ToString());
+                        for (int j = 0; j < dt.Rows.Count; j++)
+                        {
+                            text.content_trans.Add(dt.Rows[j].ItemArray[0].ToString());
+                        }
+                        dt.Dispose();
+                        myConnection.Close();
+
+                    }
+                }
+
+                using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+                {
+                    string sql = "SELECT image_path From images Where Id = " + ListOfItens[i] + "; ";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                    {
+                        myConnection.Open();
+                        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                        DataTable dt = new DataTable();
+                        dt.Load(dr);
+                        //lastID = Int32.Parse(dt.Rows[0].ItemArray[0].ToString());
+                        for (int j = 0; j < dt.Rows.Count; j++)
+                        {
+                            text.img_path =dt.Rows[j].ItemArray[0].ToString();
+                        }
+                        dt.Dispose();
+                        myConnection.Close();
+
+                    }
+                }
+                T.Add(text);
+            }
+            //1º SELECT para ir buscar lista de ids e guardalos
+            //2ª algoritmo para percurrer a lista em que 
+            // a cada novo id acrescentar um novo elemento e dentro desse is encher a lista on os SELECTS em baixo
+
+            //SELECT TextOriginal.OText
+            //From images
+            //Inner JOIN TextOriginal ON images.Id = TextOriginal.FK_Original_ID
+            //WHERE Id = 1;
+
+            //SELECT TextTranslated.TText
+            //From images
+            //Inner JOIN TextTranslated ON images.Id = TextTranslated.FK_Translated_ID
+            //WHERE Id = 1;
+
+            //SELECT image_path
+            //From images
+            //Where Id = 1;
+
+            return T;
+        }
+        public static void DeleteDataFromTables()
+        {
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                string sql = "DELETE FROM images; DELETE FROM TextOriginal; DELETE FROM TextTranslated; DELETE FROM Session;";
+                using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                {
+                    myConnection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    myConnection.Close();
+                }
+            }
+        }
+        public static void DeleteTranslated(int Fk_ID)
+        {
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                string sql = "DELETE FROM TextOriginal WHERE FK_Original_ID = " + Fk_ID+";";
+                //MessageBox.Show(sql);
+                using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                {
+                    myConnection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    myConnection.Close();
+                }
+            }
+        }
+        public static void DeleteOriginal(int Fk_ID)
+        {
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                string sql = "DELETE FROM TextTranslated WHERE FK_Translated_ID = " + Fk_ID + ";";
+                //MessageBox.Show(sql);
+                using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                {
+                    myConnection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    myConnection.Close();
+                }
+            }
+        }
+        public static void DeleteImages(string sql_query)
+        {
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                //MessageBox.Show(sql_query);
+                using (SqlCommand cmd = new SqlCommand(sql_query, myConnection))
+                {
+                    myConnection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    myConnection.Close();
+                }
+            }
+        }
+        public static void DeleteSession(string SessionName)
+        {
+            List<int> Id = GetListOfIds(SessionName);
+
+            for(int i = 0; i < Id.Count; i++)
+            {
+                DeleteOriginal(Id[i]);
+                DeleteTranslated(Id[i]);
+            }
+            if (Id.Count > 0)
+            {
+                string sql = "DELETE FROM images WHERE Id IN (";
+                //DELETE FROM your_table
+                //WHERE id IN(value1, value2, ...);
+                for (int i = 0; i < Id.Count; i++)
+                {
+                    if (i + 1 == Id.Count)
+                        sql += Id[i];
+                    else
+                        sql += Id[i] + ",";
+                }
+                sql += ");";
+                DeleteImages(sql);
+            }
+
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                string sql = "DELETE FROM Session WHERE NameSession = '"+SessionName+"';";
+                //MessageBox.Show(sql);
+                using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                {
+                    myConnection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    myConnection.Close();
+                }
+            }
+        }
+
     }
 }

@@ -62,13 +62,19 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IronOcr.Assets, Version=2020.11.2.0, Culture=neutral, PublicKeyToken=c2cbcea5ea3f6d8d, processorArchitecture=MSIL">
+      <HintPath>packages\IronOcr.2020.11.2\lib\net40\IronOcr.Assets.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System">
       <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
@@ -106,6 +112,12 @@
     <Compile Include="ImageToText.Designer.cs">
       <DependentUpon>ImageToText.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModifyText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModifyText.Designer.cs">
+      <DependentUpon>ModifyText.cs</DependentUpon>
+    </Compile>
     <Compile Include="PreviewScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ImageToText.resx">
       <DependentUpon>ImageToText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModifyText.resx">
+      <DependentUpon>ModifyText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PreviewScreen.resx">
       <DependentUpon>PreviewScreen.cs</DependentUpon>

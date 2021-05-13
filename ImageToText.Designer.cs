@@ -33,6 +33,7 @@ namespace Image_Tools
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_edit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.CheckReplace1 = new System.Windows.Forms.CheckBox();
             this.btnSaveToFile = new System.Windows.Forms.Button();
@@ -82,6 +83,7 @@ namespace Image_Tools
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btn_edit);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.CheckReplace1);
             this.panel1.Controls.Add(this.btnSaveToFile);
@@ -103,6 +105,16 @@ namespace Image_Tools
             this.panel1.TabIndex = 5;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // btn_edit
+            // 
+            this.btn_edit.Location = new System.Drawing.Point(627, 573);
+            this.btn_edit.Name = "btn_edit";
+            this.btn_edit.Size = new System.Drawing.Size(155, 39);
+            this.btn_edit.TabIndex = 19;
+            this.btn_edit.Text = "Edit/Preview";
+            this.btn_edit.UseVisualStyleBackColor = true;
+            this.btn_edit.Click += new System.EventHandler(this.btn_edit_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -119,7 +131,7 @@ namespace Image_Tools
             // CheckReplace1
             // 
             this.CheckReplace1.AutoSize = true;
-            this.CheckReplace1.Location = new System.Drawing.Point(698, 546);
+            this.CheckReplace1.Location = new System.Drawing.Point(631, 210);
             this.CheckReplace1.Name = "CheckReplace1";
             this.CheckReplace1.Size = new System.Drawing.Size(134, 21);
             this.CheckReplace1.TabIndex = 17;
@@ -260,7 +272,7 @@ namespace Image_Tools
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(627, 231);
+            this.button5.Location = new System.Drawing.Point(627, 256);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(155, 33);
             this.button5.TabIndex = 14;
@@ -302,7 +314,7 @@ namespace Image_Tools
             "Greek",
             "Hindi",
             "Italian",
-            "Japanese\t",
+            "Japanese",
             "Math/equation",
             "Polish",
             "Portuguese",
@@ -316,7 +328,7 @@ namespace Image_Tools
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(627, 270);
+            this.button4.Location = new System.Drawing.Point(627, 295);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(155, 32);
             this.button4.TabIndex = 10;
@@ -379,7 +391,7 @@ namespace Image_Tools
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ImageToText";
-            this.Text = "ImageToText";
+            this.Text = "Image To Text";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -405,5 +417,6 @@ namespace Image_Tools
         private System.Windows.Forms.Button btnSaveToFile;
         private System.Windows.Forms.CheckBox CheckReplace1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_edit;
     }
 }

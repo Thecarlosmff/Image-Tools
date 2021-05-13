@@ -6,6 +6,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Text;
 
 namespace Image_Tools
 {
@@ -25,7 +26,7 @@ namespace Image_Tools
             //string path = "C:\\Screenshots\\4.png";
             string middle = "stdout";
             if (OCRCombo.SelectedItem != null)
-                middle += " -l " + TranslationTools.getOCRLang(OCRCombo.SelectedItem.ToString());
+                middle += " -l " + TranslationTools.getOCRLang(OCRCombo.Text);
             else
                 middle += " -l eng";
             TranslationTools.show_MSG(label1, "Please wait...", Color.FromArgb(150, 255, 10, 10), 1);
@@ -33,6 +34,8 @@ namespace Image_Tools
             {
                 try
                 {
+                    //var Result = new IronTesseract().Read(item.SubItems[0].Text).Text;
+                    //return;
                     OCR(TESSERACT_EXE, item.SubItems[0].Text, middle);
                 }
                 catch (Exception ex)
@@ -44,22 +47,30 @@ namespace Image_Tools
         }
         void OCR(string program, string cmdargs, string cmdargs2)
         {
-            var proc = new Process()
+
+           var proc = new Process()
             {
-                //StartInfo = new ProcessStartInfo("cmd.exe", "/k " + cmdargs)
-                StartInfo = new ProcessStartInfo(program, cmdargs + " " + cmdargs2)
+               //"[Console]::OutputEncoding = New - Object System.Text.UTF8Encoding $false;"
+               //StartInfo = new ProcessStartInfo("cmd.exe", "/k " + cmdargs)
+               StartInfo = new ProcessStartInfo(program, cmdargs + " " + cmdargs2)
                 {
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     CreateNoWindow = true,
+                    StandardOutputEncoding = Encoding.UTF8,
+                    //RedirectStandardInput = true,
                     UseShellExecute = false
+                    
                 },
                 EnableRaisingEvents = true
             };
 
             proc.Start();
             //string output = proc.StandardOutput.ReadToEnd(); //reads all the text
-
+            //proc.StandardInput.WriteLine("chcp 65001");
+            //proc.StandardInput.Flush();
+            //proc.StandardInput.Close();
+            //Console.OutputEncoding = Encoding.UTF8;
             string output;
             Text txt = new Text();
             //int count = 0;
@@ -133,6 +144,7 @@ namespace Image_Tools
             {
                 concat += T.content[i] + " ";
             }
+            if(concat.Length > 1)
             concat = concat.Remove(concat.Length - 1);
             //MessageBox.Show("\""+concat+"\"");
 
@@ -216,7 +228,11 @@ namespace Image_Tools
             ////SaveToExcel_both(listText,1,1);
             //SaveExcel(listText,1,1);
             //SaveWord(listText);
-            if (comboBox4.SelectedIndex == -1) ;
+            if (comboBox4.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select a type of file");
+                return;
+            }
             switch (comboBox4.SelectedIndex)
             {
                 case 0:
@@ -491,6 +507,15 @@ namespace Image_Tools
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_edit_Click(object sender, EventArgs e)
+        {
+            ModifyText form = new ModifyText();
+            form.passList(this.listText);
+            this.Hide();
+            form.ShowDialog();
+            this.Show();
         }
     }
 }
