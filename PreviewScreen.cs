@@ -233,8 +233,8 @@ namespace Image_Tools
 
 
                     TranslationTools.ColorToHSV(pixelColor, out hue, out saturation, out value); //aqui temos os valores corretos do HSV
-                                                                                //nas variaveis hue, saturation e value
-                                                                                //MessageBox.Show("hue " + hue + "\nsaturation " + saturation + "\nvalue " + value);
+                                                                                                 //nas variaveis hue, saturation e value
+                                                                                                 //MessageBox.Show("hue " + hue + "\nsaturation " + saturation + "\nvalue " + value);
                     if (!RightColor(hue, saturation, value))
                     {
                         //MessageBox.Show("hue " + hue + "\nsaturation " + saturation + "\nvalue " + value);
@@ -242,6 +242,7 @@ namespace Image_Tools
                         image1.SetPixel(x, y, pixelColor);
                         //MessageBox.Show(pixelColor.R + "\n" + pixelColor.G+"\n"+pixelColor.B);
                     }
+                        
 
                 }
             }

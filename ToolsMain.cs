@@ -567,7 +567,7 @@ namespace Image_Tools
             using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
             {
                 string temp = (text.img_path).Replace("'", "''");
-                string sql = "INSERT INTO dbo.images (image_path) VALUES ('" + temp + "');";
+                string sql = "INSERT INTO dbo.images (image_path) VALUES (N'" + temp + "');";
                 using (SqlCommand cmd = new SqlCommand(sql, myConnection))
                 {
                     myConnection.Open();
@@ -587,7 +587,7 @@ namespace Image_Tools
                 using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
                 {
                     temp = text.content[i].Replace("'", "''");
-                    string sql = "INSERT INTO dbo.TextOriginal (OText,FK_Original_ID) VALUES ('" + temp + "'," + Id + ");";
+                    string sql = "INSERT INTO dbo.TextOriginal (OText,FK_Original_ID) VALUES (N'" + temp + "'," + Id + ");";
                     //MessageBox.Show(sql);
                     using (SqlCommand cmd = new SqlCommand(sql, myConnection))
                     {
@@ -603,7 +603,7 @@ namespace Image_Tools
                 using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
                 {
                     temp = text.content_trans[i].Replace("'","''");
-                    string sql = "INSERT INTO dbo.TextTranslated (TText,FK_Translated_ID) VALUES ('" + temp + "'," + Id + ");";
+                    string sql = "INSERT INTO dbo.TextTranslated (TText,FK_Translated_ID) VALUES (N'" + temp + "'," + Id + ");";
                     using (SqlCommand cmd = new SqlCommand(sql, myConnection))
                     {
                         myConnection.Open();
@@ -618,7 +618,7 @@ namespace Image_Tools
         {
             using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
             {
-                string sql = "INSERT INTO dbo.Session (NameSession,IdImage) VALUES ('" + name + "'," + LastId + ");";
+                string sql = "INSERT INTO dbo.Session (NameSession,IdImage) VALUES (N'" + name + "'," + LastId + ");";
                 using (SqlCommand cmd = new SqlCommand(sql, myConnection))
                 {
                     myConnection.Open();
@@ -877,7 +877,20 @@ namespace Image_Tools
                 }}
             return image1;
         }
-
+        public static Bitmap NegativeColors(Bitmap image1)
+        {
+            int x, y;
+            for (x = 0; x < image1.Width; x++)
+            {
+                for (y = 0; y < image1.Height; y++)
+                {
+                    Color pixelColor = image1.GetPixel(x, y); //gets the color of each pixel
+                    pixelColor = Color.FromArgb(pixelColor.ToArgb() ^ 0xffffff);
+                    image1.SetPixel(x, y, pixelColor);
+                }
+            }
+            return image1;
+        }
         public static Bitmap ToBlackAndWhite(Bitmap image,int opacity,int value)
         {
             int x, y, red;

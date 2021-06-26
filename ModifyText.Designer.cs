@@ -52,11 +52,16 @@ namespace Image_Tools
             this.label4 = new System.Windows.Forms.Label();
             this.TextBox_SessionName = new System.Windows.Forms.TextBox();
             this.btn_delete_session = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btn_2 = new System.Windows.Forms.Button();
+            this.btn_3 = new System.Windows.Forms.Button();
+            this.btn_1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.num_goto)).BeginInit();
             this.SuspendLayout();
             // 
             // rich_Original
             // 
+            this.rich_Original.BackColor = System.Drawing.Color.White;
             this.rich_Original.Location = new System.Drawing.Point(31, 69);
             this.rich_Original.Name = "rich_Original";
             this.rich_Original.Size = new System.Drawing.Size(460, 493);
@@ -65,12 +70,12 @@ namespace Image_Tools
             // 
             // rich_translated
             // 
+            this.rich_translated.BackColor = System.Drawing.Color.White;
             this.rich_translated.Location = new System.Drawing.Point(497, 69);
             this.rich_translated.Name = "rich_translated";
             this.rich_translated.Size = new System.Drawing.Size(460, 493);
             this.rich_translated.TabIndex = 2;
             this.rich_translated.Text = "";
-            updateTextBox();
             // 
             // btn_previous
             // 
@@ -116,7 +121,7 @@ namespace Image_Tools
             // 
             // btn_save_current
             // 
-            this.btn_save_current.Location = new System.Drawing.Point(1009, 462);
+            this.btn_save_current.Location = new System.Drawing.Point(1009, 416);
             this.btn_save_current.Name = "btn_save_current";
             this.btn_save_current.Size = new System.Drawing.Size(146, 39);
             this.btn_save_current.TabIndex = 7;
@@ -126,7 +131,7 @@ namespace Image_Tools
             // 
             // btn_load_current
             // 
-            this.btn_load_current.Location = new System.Drawing.Point(1009, 417);
+            this.btn_load_current.Location = new System.Drawing.Point(1009, 371);
             this.btn_load_current.Name = "btn_load_current";
             this.btn_load_current.Size = new System.Drawing.Size(146, 39);
             this.btn_load_current.TabIndex = 8;
@@ -191,14 +196,14 @@ namespace Image_Tools
             this.lbl_path.ForeColor = System.Drawing.Color.Blue;
             this.lbl_path.Location = new System.Drawing.Point(28, 639);
             this.lbl_path.Name = "lbl_path";
-            this.lbl_path.Size = new System.Drawing.Size(57, 17);
+            this.lbl_path.Size = new System.Drawing.Size(0, 17);
             this.lbl_path.TabIndex = 14;
             this.lbl_path.Click += new System.EventHandler(this.lbl_path_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(960, 504);
+            this.label1.Location = new System.Drawing.Point(960, 458);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(240, 17);
             this.label1.TabIndex = 15;
@@ -268,11 +273,57 @@ namespace Image_Tools
             this.btn_delete_session.UseVisualStyleBackColor = true;
             this.btn_delete_session.Click += new System.EventHandler(this.btn_delete_session_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(450, 641);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.MarginChanged += new System.EventHandler(this.button1_MarginChanged);
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btn_2
+            // 
+            this.btn_2.Location = new System.Drawing.Point(1016, 546);
+            this.btn_2.Name = "btn_2";
+            this.btn_2.Size = new System.Drawing.Size(146, 47);
+            this.btn_2.TabIndex = 24;
+            this.btn_2.Text = "Insert new BEFORE current";
+            this.btn_2.UseVisualStyleBackColor = true;
+            this.btn_2.Click += new System.EventHandler(this.btn_2_Click);
+            // 
+            // btn_3
+            // 
+            this.btn_3.Location = new System.Drawing.Point(1016, 599);
+            this.btn_3.Name = "btn_3";
+            this.btn_3.Size = new System.Drawing.Size(146, 47);
+            this.btn_3.TabIndex = 25;
+            this.btn_3.Text = "Insert new AFTER current";
+            this.btn_3.UseVisualStyleBackColor = true;
+            this.btn_3.Click += new System.EventHandler(this.btn_3_Click);
+            // 
+            // btn_1
+            // 
+            this.btn_1.Location = new System.Drawing.Point(1016, 575);
+            this.btn_1.Name = "btn_1";
+            this.btn_1.Size = new System.Drawing.Size(146, 47);
+            this.btn_1.TabIndex = 26;
+            this.btn_1.Text = "Insert new";
+            this.btn_1.UseVisualStyleBackColor = true;
+            this.btn_1.Click += new System.EventHandler(this.btn_1_Click);
+            // 
             // ModifyText
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1196, 668);
+            this.Controls.Add(this.btn_1);
+            this.Controls.Add(this.btn_3);
+            this.Controls.Add(this.btn_2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_delete_session);
             this.Controls.Add(this.TextBox_SessionName);
             this.Controls.Add(this.label4);
@@ -332,5 +383,9 @@ namespace Image_Tools
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox TextBox_SessionName;
         private System.Windows.Forms.Button btn_delete_session;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_2;
+        private System.Windows.Forms.Button btn_3;
+        private System.Windows.Forms.Button btn_1;
     }
 }

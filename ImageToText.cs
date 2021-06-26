@@ -162,18 +162,24 @@ namespace Image_Tools
         private string handleTranslation(string InLang, string OutLang, string text)
         {
             string url = "https://translate.google.com/m?hl=?" + InLang + "&sl=" + InLang + "&tl=" + OutLang + "&ie=UTF-8&prev=_m&q=" + text;
-
-            WebClient web = new WebClient();
-            web.Encoding = System.Text.Encoding.UTF8;
-            System.IO.Stream stream = web.OpenRead(url);
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
+            try
             {
-                String a = reader.ReadToEnd();
-                web.Dispose();
-                web = null;
-                a = GetBetween(a, "class=\"result-container\">", "</div>");
-                //MessageBox.Show(a);
-                return a;
+                WebClient web = new WebClient();
+                web.Encoding = System.Text.Encoding.UTF8;
+                System.IO.Stream stream = web.OpenRead(url);
+                using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
+                {
+                    String a = reader.ReadToEnd();
+                    web.Dispose();
+                    web = null;
+                    a = GetBetween(a, "class=\"result-container\">", "</div>");
+                    //MessageBox.Show(a);
+                    return a;
+                }
+            }
+            catch
+            {
+                return "";
             }
 
         }

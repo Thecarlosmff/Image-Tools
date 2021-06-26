@@ -10,15 +10,17 @@ namespace Image_Tools
     public partial class ModifyText : Form
     {
         static String CONNECTION_STRING = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database1.mdf;Integrated Security=True";
+        List<Text> myList = new List<Text>();
+        List<Text> tempList = new List<Text>();
+        int number = 0; // Used to see what should be in the text boxes;
+
         public ModifyText()
         {
             InitializeComponent();
             TranslationTools.FillDropDownSessions("SELECT DISTINCT NameSession from Session;",comboSession);
+            updateTextBox();
         }
 
-        List<Text> myList = new List<Text>();
-        List<Text> tempList = new List<Text>();
-        int number = 0; // Used to see what should be in the text boxes;
 
         public void passList(List<Text> List)
         {
@@ -36,6 +38,7 @@ namespace Image_Tools
         {
             rich_Original.Text = "";
             rich_translated.Text = "";
+            //btn_1.Enabled = true;
             if (tempList.Count <= 0)
             {
                 btn_delete.Enabled = false;
@@ -45,6 +48,13 @@ namespace Image_Tools
                 lbl_count.Visible = false;
                 lbl_path.Visible = false;
                 lbl_path.Text = "";
+                btn_1.Visible = true;
+                btn_2.Visible = false;
+                btn_3.Visible = false;
+                rich_Original.ReadOnly = true;
+                rich_translated.ReadOnly = true;
+                rich_Original.BackColor = System.Drawing.Color.LightGray;
+                rich_translated.BackColor = System.Drawing.Color.LightGray;
                 return;
             }
             else
@@ -54,6 +64,14 @@ namespace Image_Tools
                 btn_discard.Enabled = true;
                 lbl_count.Text = number + 1 + " of " + tempList.Count;
                 lbl_count.Visible = true;
+                btn_1.Visible = false;
+                btn_2.Visible = true;
+                btn_3.Visible = true;
+                rich_Original.ReadOnly = false;
+                rich_translated.ReadOnly = false;
+                rich_Original.BackColor = System.Drawing.Color.White;
+                rich_translated.BackColor = System.Drawing.Color.White;
+
             }
 
             if (number > tempList.Count - 1 | number < 0) number = 0;
@@ -116,6 +134,7 @@ namespace Image_Tools
         }
         private void SaveThis()
         {
+            if (tempList.Count <= 0) return;
             tempList[number].content.Clear();
             tempList[number].content_trans.Clear();
             for (int i = 0;i< rich_Original.Lines.Length; i++)
@@ -178,7 +197,6 @@ namespace Image_Tools
             }
             //REFRESH THE SESSION LIST (comboSession)
         }
-
 
         private void btn_load_session_Click(object sender, EventArgs e)
         {
@@ -287,6 +305,54 @@ namespace Image_Tools
         {
             if (System.IO.File.Exists(lbl_path.Text))
                 Process.Start(lbl_path.Text);
+        }
+
+        private void button1_MarginChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        //private void btn_1_Click(object sender, EventArgs e)
+        //{
+        //    if (tempList.Count > 0) return;
+        //    Text Item = new Text();
+        //    for (int i = 0; i < rich_Original.Lines.Length; i++)
+        //    {
+        //        Item.content.Add(rich_Original.Lines[i]);
+        //    }
+        //    for (int i = 0; i < rich_translated.Lines.Length; i++)
+        //    {
+        //        Item.content_trans.Add(rich_translated.Lines[i]);
+        //    }
+        //    tempList.Add(Item);
+        //    updateTextBox();
+        //}
+
+        private void btn_1_Click(object sender, EventArgs e)
+        {
+            if (tempList.Count > 0) return;
+            Text Item = new Text();
+            tempList.Add(Item);
+            number = 0;
+            updateTextBox();
+        }
+
+
+        private void btn_2_Click(object sender, EventArgs e) //BEFORE
+        {
+            SaveThis();
+            Text Item = new Text();
+            tempList.Insert(number, Item);
+            updateTextBox();
+        }
+
+        private void btn_3_Click(object sender, EventArgs e)
+        {
+            SaveThis();
+            Text Item = new Text();
+            tempList.Insert(number+1, Item);
+            number++;
+            updateTextBox();
         }
     }
 }
