@@ -534,6 +534,11 @@ namespace Image_Tools
             this.numSatMax3.Name = "numSatMax3";
             this.numSatMax3.Size = new System.Drawing.Size(75, 22);
             this.numSatMax3.TabIndex = 23;
+            this.numSatMax3.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // numSatMin3
             // 

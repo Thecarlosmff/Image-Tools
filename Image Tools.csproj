@@ -105,6 +105,7 @@
     <Compile Include="ColorsManagementDialog.Designer.cs">
       <DependentUpon>ColorsManagementDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Debouncer.cs" />
     <Compile Include="DocumentFormat\OpenXml\Office\Excel\Worksheet.cs" />
     <Compile Include="ImageToText.cs">
       <SubType>Form</SubType>
@@ -164,6 +165,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="RemoveBackground.resx">
       <DependentUpon>RemoveBackground.cs</DependentUpon>
@@ -217,6 +219,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\refresh-icon.png" />
+    <None Include="Resources\undo-arrow2.png" />
+    <None Include="Resources\circle-16.png" />
+    <None Include="Resources\circle-16 Green.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

@@ -138,69 +138,15 @@ namespace Image_Tools
                 //Dispatcher.BeginInvoke(new Action(() => txtOut.Text += (Environment.NewLine + e.Data)));
             }
         }
-        void Translation(string inLang, string outLang, Text T)
-        {
-            string concat = "";
-            for (int i = 0; i < T.content.Count; i++)
-            {
-                concat += T.content[i] + " ";
-            }
-            if(concat.Length > 1)
-            concat = concat.Remove(concat.Length - 1);
-            //MessageBox.Show("\""+concat+"\"");
-
-            //MessageBox.Show(handleTranslation("en", "ja", concat));
-            T.content_trans.Clear();
-            string a = handleTranslation(inLang, outLang, concat);
-            if (a != null)
-            {
-                a = TranslationTools.ReplaceASCII(a);
-                T.content_trans.Add(a);
-                T.lang_trans = outLang;
-            }
-        }
-        private string handleTranslation(string InLang, string OutLang, string text)
-        {
-            string url = "https://translate.google.com/m?hl=?" + InLang + "&sl=" + InLang + "&tl=" + OutLang + "&ie=UTF-8&prev=_m&q=" + text;
-            try
-            {
-                WebClient web = new WebClient();
-                web.Encoding = System.Text.Encoding.UTF8;
-                System.IO.Stream stream = web.OpenRead(url);
-                using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
-                {
-                    String a = reader.ReadToEnd();
-                    web.Dispose();
-                    web = null;
-                    a = GetBetween(a, "class=\"result-container\">", "</div>");
-                    //MessageBox.Show(a);
-                    return a;
-                }
-            }
-            catch
-            {
-                return "";
-            }
-
-        }
-        public static string GetBetween(string source, string start, string end)
-        {
-            var startPos = source.IndexOf(start, StringComparison.Ordinal);
-            if (startPos < 0) return null;
-            startPos += start.Length;
-            var endPos = source.IndexOf(end, startPos, StringComparison.Ordinal);
-            //return endPos < 0 ? null : source.Substring(startPos, endPos - startPos - 1);
-
-            return endPos < 0 ? null : source.Substring(startPos, endPos - startPos);
-        }
+        
         private void TranslateAll(List<Text> T)
         {
             for (int i = 0; i < T.Count; i++)
                 //Translation(T[i].lang_con, TranslationTools.getTranslationStr(TransCombo.SelectedText), T[i]);
                 if (TransCombo.SelectedItem != null)
-                    Translation("auto", TranslationTools.getTranslationStr(TransCombo.SelectedItem.ToString()), T[i]);
+                    TranslationTools.Translation("auto", TranslationTools.getTranslationStr(TransCombo.SelectedItem.ToString()), T[i]);
                 else
-                    Translation("auto", "eng", T[i]);
+                    TranslationTools.Translation("auto", "eng", T[i]);
             //MessageBox.Show("Translation Done! Good Work!");
         }
         private void label2_Click(object sender, EventArgs e)

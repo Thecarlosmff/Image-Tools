@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 namespace Image_Tools
@@ -628,6 +626,20 @@ namespace Image_Tools
                 }
             }
         }
+        public static void InsertSessionWAuto(string name, int LastId)
+        {
+            using (SqlConnection myConnection = new SqlConnection(CONNECTION_STRING))
+            {
+                string sql = "INSERT INTO dbo.Session (NameSession,IdImage,Auto) VALUES (N'" + name + "'," + LastId + ",1);";
+                using (SqlCommand cmd = new SqlCommand(sql, myConnection))
+                {
+                    myConnection.Open();
+                    _ = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    myConnection.Close();
+
+                }
+            }
+        }
         public static List<string> GetSessionNames()
         {
             List<string> l = new List<string>();
@@ -913,6 +925,62 @@ namespace Image_Tools
                 }
             }
             return image;
+        }
+
+        public static void Translation(string inLang, string outLang, Text T)
+        {
+            string concat = "";
+            for (int i = 0; i < T.content.Count; i++)
+            {
+                concat += T.content[i] + " ";
+            }
+            if (concat.Length > 1)
+                concat = concat.Remove(concat.Length - 1);
+            //MessageBox.Show("\""+concat+"\"");
+
+            //MessageBox.Show(handleTranslation("en", "ja", concat));
+            T.content_trans.Clear();
+            string a = handleTranslation(inLang, outLang, concat);
+            if (a != null)
+            {
+                a = TranslationTools.ReplaceASCII(a);
+                T.content_trans.Add(a);
+                T.lang_trans = outLang;
+            }
+        }
+        public static string handleTranslation(string InLang, string OutLang, string text)
+        {
+            string url = "https://translate.google.com/m?hl=?" + InLang + "&sl=" + InLang + "&tl=" + OutLang + "&ie=UTF-8&prev=_m&q=" + text;
+            try
+            {
+                WebClient web = new WebClient();
+                web.Encoding = System.Text.Encoding.UTF8;
+                System.IO.Stream stream = web.OpenRead(url);
+                using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
+                {
+                    String a = reader.ReadToEnd();
+                    web.Dispose();
+                    web = null;
+                    a = GetBetween(a, "class=\"result-container\">", "</div>");
+                    //MessageBox.Show(a);
+                    return a;
+                }
+            }
+            catch
+            {
+                return "";
+            }
+
+        }
+        public static string GetBetween(string source, string start, string end)
+        {
+            var startPos = source.IndexOf(start, StringComparison.Ordinal);
+            if (startPos < 0) return null;
+            startPos += start.Length;
+            var endPos = source.IndexOf(end, startPos, StringComparison.Ordinal);
+            //return endPos < 0 ? null : source.Substring(startPos, endPos - startPos - 1);
+
+            return endPos < 0 ? null : source.Substring(startPos, endPos - startPos);
         }
     }
 }
